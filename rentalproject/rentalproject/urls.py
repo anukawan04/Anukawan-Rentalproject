@@ -22,14 +22,21 @@ from vehicles import urls as vehicles_urls
 from booking import urls as booking_urls
 from orders import urls as orders_urls
 
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
+
+import rentalproject.my_admin  # Only keep if used for admin customization
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('payment/', include(payment_urls)),
-    path('users/',include(users_urls)),
-    path('vehicles/', include(vehicles_urls)), 
+    path('users/', include(users_urls)),
+    path('vehicles/', include(vehicles_urls)),
     path('booking/', include(booking_urls)),
     path('orders/', include(orders_urls)),
-
-
-
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
